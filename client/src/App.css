@@ -1,4 +1,21 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: "Open Sans", sans-serif;
 }
+
+.container {
+  height: "100%";
+  width: "100%";
+}
+.blog-container {
+  display: flex;
+  width: "100%";
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  margin-top: 8%;
+  height: "100%";
+  text-align: center;
+}
+
