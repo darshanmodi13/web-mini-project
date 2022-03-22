@@ -2,8 +2,8 @@ import React from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 //components
-import Navbar from "./Navbar/Navbar";
-import Blog from "./Blog/Blog";
+import Navbar from "../components/Navbar/Navbar";
+import Blog from "../components/Blog/Blog";
 
 const Home = () => {
   const { authState } = useGlobalContext();

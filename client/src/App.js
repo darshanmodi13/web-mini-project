@@ -1,5 +1,5 @@
-//css
 import React from "react";
+//css
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GlobalContextProvider } from "./contexts/GlobalContext";
 
 //Pages
-import Home from "./components/Home";
+import Home from "./Pages/Home";
 
 function App() {
   return (
