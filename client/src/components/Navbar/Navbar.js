@@ -5,9 +5,6 @@ import { makeStyles } from "@mui/styles";
 import Slider from "./Slider";
 
 const useStyles = makeStyles({
-  "nav-container": {
-    position: "relative",
-  },
   nav: {
     position: "fixed",
     top: "0",
@@ -16,7 +13,7 @@ const useStyles = makeStyles({
     paddingTop: "20px",
     alignItems: "center",
     background: "#fff",
-    paddingBottom : '15px'
+    paddingBottom: "15px",
   },
   "menu-container": {
     flexBasis: "20%",
