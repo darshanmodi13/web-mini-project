@@ -64,7 +64,7 @@ const useStyles = makeStyles({
     outline: "none",
   },
 });
-const email_regex = "/^[^s@]+@[^s@]+.[^s@]+$/";
+
 const Register = () => {
   const classes = useStyles();
   const [err, setErr] = useState("err");
