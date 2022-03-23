@@ -80,10 +80,10 @@ const Slider = ({ displaySidebar }) => {
             </div>
             <ul className={classes.categories}>
               <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>LifeStyle</li>
+              <li className={classes.category}>IT</li>
+              <li className={classes.category}>Sports</li>
+              <li className={classes.category}>Food</li>
+              <li className={classes.category}>News</li>
             </ul>
           </li>
           <li className={classes.li}>Login</li>
