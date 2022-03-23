@@ -1,0 +1,32 @@
+.FullBlogPage,
+.blogcontainer {
+  height: 100%;
+  width: 100%;
+}
+
+.FullPage {
+  width: 95%;
+  height: 70vh;
+  border-radius: 15px;
+}
+
+.Imgcontainer {
+  text-align: center;
+}
+.blogcontainer {
+  text-align: justify;
+}
+.details {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding-top: 20px;
+  width: 60%;
+  margin: auto;
+  font-weight: bold;
+}
+.content {
+  font-size: 1rem;
+  padding-top: 5%;
+  margin: auto;
+  width: 60%;
+}
