@@ -9,12 +9,15 @@ import { GlobalContextProvider } from "./contexts/GlobalContext";
 //Pages
 import Home from "./Pages/Home/Home";
 
+import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 function App() {
   return (
     <GlobalContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/blog" element={<FullBlogPage />} />
+
         </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
