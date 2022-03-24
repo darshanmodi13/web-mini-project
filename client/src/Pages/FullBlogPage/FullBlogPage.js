@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./FullBlogPage.module.css";
 import photo from "../../assets/photo.jpeg";
 import Navbar from "../../components/Navbar/Navbar";
-
+import Footer from "../../components/Footer/Footer";
 export default function FullBlogPage() {
   return (
     <>
@@ -69,6 +69,7 @@ export default function FullBlogPage() {
             urna, in sodales nisi placerat sit amet
           </p>
         </div>
+        <Footer />
       </div>
     </>
   );
