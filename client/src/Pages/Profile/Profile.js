@@ -28,6 +28,7 @@ const Profile = () => {
                     <Blog/>
                     <Blog/>
                     <Blog/><Blog/>
+                    
 
                 </div>
         <Footer />

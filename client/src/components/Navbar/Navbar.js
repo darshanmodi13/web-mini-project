@@ -6,7 +6,7 @@ import Slider from "./Slider";
 
 const useStyles = makeStyles({
   nav: {
-    position: "fixed",
+    position:"fixed",
     top: "0",
     width: "100%",
     display: "flex",
