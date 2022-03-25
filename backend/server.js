@@ -16,6 +16,7 @@ const swaggerUI = require("swagger-ui-express");
 
 //routes
 const userRoutes = require("./app/routes/user.routes");
+const categoryRoutes = require("./app/routes/category.routes");
 
 const app = express();
 
@@ -75,6 +76,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 //Routes
 app.use("/api/user", userRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to SE project");
