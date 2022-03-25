@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     position: "relative",
   },
   nav: {
-    position: "fixed",
+    position:"fixed",
     top: "0",
     width: "100%",
     display: "flex",
