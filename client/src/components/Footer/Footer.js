@@ -3,6 +3,7 @@ import React from "react";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 const useStyles = makeStyles({
   "footer-container": {
+    position:'relative',
     padding: "20px",
     width: "80%",
     display: "flex",

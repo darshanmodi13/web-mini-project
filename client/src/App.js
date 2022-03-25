@@ -12,6 +12,8 @@ import { CreateBlog } from "./Pages/CreateBlog/CreateBlog";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
+// import ViewProfile from "./Pages/ViewProfile/ViewProfile";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/blog" element={<FullBlogPage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<CreateBlog />} />
         </Routes>
       </BrowserRouter>
