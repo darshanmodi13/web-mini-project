@@ -12,6 +12,7 @@ import { CreateBlog } from "./Pages/CreateBlog/CreateBlog";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
+import { UpdateBlog } from "./Pages/UpdateBlog/UpdateBlog";
 // import ViewProfile from "./Pages/ViewProfile/ViewProfile";
 import Profile from "./Pages/Profile/Profile";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/blog" element={<FullBlogPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<CreateBlog />} />
+          <Route path="/update" element={<UpdateBlog />} />
         </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
