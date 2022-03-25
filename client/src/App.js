@@ -12,7 +12,7 @@ import { CreateBlog } from "./Pages/CreateBlog/CreateBlog";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
-
+import { UpdateBlog } from "./Pages/UpdateBlog/UpdateBlog";
 function App() {
   return (
     <GlobalContextProvider>
@@ -23,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/blog" element={<FullBlogPage />} />
           <Route path="/create" element={<CreateBlog />} />
+          <Route path="/update" element={<UpdateBlog />} />
         </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
