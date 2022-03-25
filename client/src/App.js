@@ -24,12 +24,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/blog" element={<FullBlogPage />} />
-<<<<<<< HEAD
           <Route path="/profile" element={<Profile />} />
-
-=======
           <Route path="/create" element={<CreateBlog />} />
->>>>>>> 6c9b684f749b5a73c4c852084422fc742defbe65
         </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
