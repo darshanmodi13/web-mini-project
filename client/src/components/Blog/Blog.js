@@ -49,6 +49,7 @@ const useStyles = makeStyles({
     padding: "5px",
     marginLeft: "5px",
     cursor: "pointer",
+    textTransform: "capitalize",
     "&:hover": {
       color: "#fff",
       background: "black",
@@ -56,22 +57,42 @@ const useStyles = makeStyles({
   },
 });
 
-const Blog = () => {
+const Blog = ({ blog }) => {
   const classes = useStyles();
+  let date = new Date(blog.createdAt);
   return (
     <>
       <div className={classes.blog}>
         <img src={img} alt="img" className={classes.img} />
         <div className={classes["date-container"]}>
-          <div className={classes.category}>Blog</div>
-          <div>March 21,2022</div>
+          <div className={classes.category}>{blog.category_id.name}</div>
+          <div>{`${getMonth(
+            date.getMonth()
+          )} ${date.getDate()} , ${date.getFullYear()}`}</div>
         </div>
-        <div className={classes.header}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-        </div>
+        <div className={classes.header}>{blog.title}</div>
       </div>
     </>
   );
 };
 
 export default Blog;
+
+function getMonth(month) {
+  let arr = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  return arr[month];
+}
