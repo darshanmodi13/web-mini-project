@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+import categoryApi from "../../api/category.api";
+
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   "slider-container": {
@@ -38,6 +42,7 @@ const useStyles = makeStyles({
   },
   category: {
     paddingTop: "20px",
+    color: "#fff",
   },
   rotate: {
     transform: "rotate(180deg)",
@@ -46,6 +51,11 @@ const useStyles = makeStyles({
 
 const Slider = ({ displaySidebar }) => {
   const classes = useStyles();
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const rotateArrow = (e) => {
     let arrow = document.querySelector(".arrow");
@@ -56,6 +66,16 @@ const Slider = ({ displaySidebar }) => {
       document.querySelector(`.${classes.categories}`).style.display = "flex";
       arrow.classList.add(classes.rotate);
     }
+  };
+  const getCategories = async () => {
+    categoryApi.getList(
+      (res) => {
+        setCategory(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
   return (
     <>
@@ -79,11 +99,18 @@ const Slider = ({ displaySidebar }) => {
               />
             </div>
             <ul className={classes.categories}>
-              <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>IT</li>
-              <li className={classes.category}>Sports</li>
-              <li className={classes.category}>Food</li>
-              <li className={classes.category}>News</li>
+              {category && category.length > 0
+                ? category.map((c, index) => {
+                    return (
+                      <Link
+                        to={`/category?category_id=${c._id}`}
+                        className={classes.category}
+                      >
+                        {c.name.toUpperCase()}
+                      </Link>
+                    );
+                  })
+                : null}
             </ul>
           </li>
           <li className={classes.li}>Login</li>
