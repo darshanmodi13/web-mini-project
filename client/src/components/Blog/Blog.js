@@ -57,12 +57,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, id }) => {
   const classes = useStyles();
   let date = new Date(blog.createdAt);
   return (
     <>
-      <div className={classes.blog}>
+      <div className={classes.blog} id={id}>
         <img src={img} alt="img" className={classes.img} />
         <div className={classes["date-container"]}>
           <div className={classes.category}>{blog.category_id.name}</div>

@@ -6,7 +6,7 @@ const categoryApi = {
       let res = await Axios().get("/api/category/list");
       onSucess(res.data.data);
     } catch (error) {
-      onError(error.messages);
+      onError(error.response.data);
     }
   },
 };

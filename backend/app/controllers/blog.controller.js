@@ -163,3 +163,16 @@ exports.updateImg = async (req, res) => {
     return responses.serverErrorResponse(res);
   }
 };
+
+exports.getSingleBlog = async (req, res) => {
+  try {
+    if (!req.params.id)
+      return responses.badRequestResponse(res, { error: "Provid Blog ID" });
+    let blog = await Blog.findById(req.params.id);
+    if (!blog) return responses.notFoundResponse(res, "Blog Not Found..");
+    return responses.successResponse(res, blog, "Blog Found..");
+  } catch (error) {
+    console.log(error);
+    return responses.serverErrorResponse(res);
+  }
+};

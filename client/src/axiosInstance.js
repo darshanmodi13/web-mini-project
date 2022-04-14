@@ -13,7 +13,6 @@ const axiosInstance = () => {
   const client = axios.create({
     baseURL: url,
     headers: {
-      Authorization: auth_token,
       "content-Type": "application/json",
     },
   });

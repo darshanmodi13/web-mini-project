@@ -3,6 +3,10 @@ import { makeStyles } from "@mui/styles";
 import Navbar from "../../components/Navbar/Navbar";
 import blog from "../../assets/blog.jpeg";
 import { Close } from "@mui/icons-material";
+
+//api
+import authApi from "../../api/auth.api";
+
 //styles
 const useStyles = makeStyles({
   "login-container": {
@@ -67,7 +71,7 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles();
-  const [err, setErr] = useState("err");
+  const [err, setErr] = useState(null);
   const [input, setInput] = useState({
     name: "",
     mobile: "",
@@ -106,6 +110,16 @@ const Register = () => {
       setErr("Password does not match");
       return;
     }
+    let { retype_pwd, ...data } = input;
+    authApi.register(
+      data,
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
   const validateEmail = (email) => {
     return String(email)

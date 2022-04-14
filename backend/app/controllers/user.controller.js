@@ -14,6 +14,7 @@ exports.testRequest = (req, res) => {
 
 exports.register = async (req, res) => {
   try {
+    console.log(req.body);
     let validate = await validation(req.body);
 
     if (validate.error) {
@@ -33,7 +34,6 @@ exports.register = async (req, res) => {
         },
       ],
     });
-    console.log(user);
     if (user) {
       return responses.badRequestResponse(res, { err: "user Already exists." });
     }
@@ -54,11 +54,11 @@ exports.register = async (req, res) => {
 
 exports.signin = async (req, res) => {
   try {
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.mobile || !req.body.password) {
       return responses.badRequestResponse(res, {}, "Invalid Credentials..");
     }
 
-    let user = await User.findById(req.params.id);
+    let user = await User.findOne({ mobile: req.body.mobile });
     if (!user) {
       return responses.unauthorizedResponse(res, {}, "User not found.");
     }
@@ -67,7 +67,7 @@ exports.signin = async (req, res) => {
     if (!is_matched) {
       return responses.unauthorizedResponse(
         res,
-        {},
+        { err: "Invalid Credententaials.." },
         "Invalid Credententaials.."
       );
     }

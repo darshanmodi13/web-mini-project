@@ -6,8 +6,6 @@ import Navbar from "./Navbar/Navbar";
 import Blog from "./Blog/Blog";
 
 const Home = () => {
-  const { authState } = useGlobalContext();
-  console.log(authState);
   return (
     <div className="container">
       <div style={{ position: "relative" }}>

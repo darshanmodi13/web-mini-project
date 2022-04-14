@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./FullBlogPage.module.css";
 import photo from "../../assets/photo.jpeg";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+
+import blogApi from "../../api/blog.api";
+import { useSearchParams } from "react-router-dom";
+
 export default function FullBlogPage() {
+  const { params } = useSearchParams();
+  console.log(params);
+  useEffect(() => {}, []);
   return (
     <>
       <div>
