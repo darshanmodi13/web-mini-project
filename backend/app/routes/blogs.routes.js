@@ -3,11 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 //controller
-const contoller = require("../controllers/blog.controller");
+const controller = require("../controllers/blog.controller");
 
 //model
 const Blogs = require("../models/blog.model");
-
 
 router.use(function (req, res, next) {
   res.header(
@@ -17,14 +16,16 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get("/list", contoller.list);
+router.get("/list", controller.list);
 
-router.post("/:id/create", contoller.create);
+router.get("/:id", controller.getSingleBlog);
 
-router.delete("/:id", contoller.delete);
+router.post("/:id/create", controller.create);
 
-router.put("/:id", contoller.update);
+router.delete("/:id", controller.delete);
 
-router.put("/:id/img", contoller.updateImg);
+router.put("/:id", controller.update);
+
+router.put("/:id/img", controller.updateImg);
 
 module.exports = router;
