@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 //database
 const User = require("../models/user.model");
-
+const Blog = require("../models/blog.model");
 //responses
 const responses = require("../utils/responses");
 
@@ -82,6 +82,24 @@ exports.signin = async (req, res) => {
       { ...user_details, token },
       "Signin successful.."
     );
+  } catch (error) {
+    console.log(error);
+    return responses.serverErrorResponse(res);
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    if (!req.params.id)
+      return responses.badRequestResponse(res, { err: "Invalid ID" });
+    let user = await User.findById(req.params.id);
+    if (!user) {
+      return responses.badRequestResponse(res, { err: "Invalid ID" });
+    }
+    let blog = await Blog.find({ user_id: req.params.id }).populate(
+      "category_id"
+    );
+    return responses.successResponse(res, { user, blog });
   } catch (error) {
     console.log(error);
     return responses.serverErrorResponse(res);

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
-import img from "../../assets/blog1.jpeg";
+import categoryApi from "../../api/category.api";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import blogApi from "../../api/blog.api";
+import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles({
   write: {
     paddingTop: "50px",
@@ -24,6 +28,12 @@ const useStyles = makeStyles({
     border: "none",
     padding: "20px",
     width: "70vw",
+  },
+  dropdown: {
+    fontSize: "1rem",
+    padding: "10px",
+    width: "70vw",
+    border: "none",
   },
   writeinput1: {
     fontSize: "1rem",
@@ -64,35 +74,127 @@ const useStyles = makeStyles({
   },
 });
 
-const NewBlog = ({ title = "", content = "" }) => {
+const NewBlog = ({ blog, image, upload }) => {
   const classes = useStyles();
+  const [newBlog, setNewBlog] = useState(blog);
+  const [category, setCategory] = useState([]);
+  const [img, setImg] = useState(image);
+  const { authState } = useGlobalContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setNewBlog(blog);
+    setImg(image);
+  }, []);
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  let getCategory = async () => {
+    await categoryApi.getList(
+      (res) => {
+        setCategory(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+
+  let displayImg = async (e) => {
+    setImg(URL.createObjectURL(e.target.files[0]));
+    getBase64(e.target.files[0], (res) => {
+      // console.log(res);
+      setNewBlog((oldData) => {
+        return {
+          ...oldData,
+          img_link: res,
+        };
+      });
+      // console.log(newBlog);
+    });
+  };
+
+  let inputChanged = (e) => {
+    setNewBlog((oldData) => {
+      return {
+        ...oldData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  let getBase64 = (file, cb) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64String = reader.result
+        .replace("data:", "")
+        .replace(/^.+,/, "");
+      cb(base64String);
+    };
+    reader.onerror = () => console.log("Erorr");
+  };
   return (
     <>
       <div className={classes.write}>
-        <img src={img} alt="img" className={classes.writeimg} />
+        {img ? <img src={img} alt="img" className={classes.writeimg} /> : null}
         <form className={classes.writeform}>
           <div className={classes.writeformgroup}>
             <label htmlFor="fileInput">
               <AddIcon className={classes.writeicon} />
             </label>
-            <input type="file" id="fileInput" className={classes.hide} />
+            <input
+              type="file"
+              id="fileInput"
+              className={classes.hide}
+              onChange={displayImg}
+            />
             <input
               type="text"
               placeholder="Title"
               className={classes.writeinput}
-              value={title}
+              name="title"
+              onChange={inputChanged}
+              value={newBlog.title}
             />
           </div>
+          {category && category.length !== 0 ? (
+            <div className={classes.writeformgroup}>
+              <select
+                className={classes.dropdown}
+                name="category_id"
+                onChange={inputChanged}
+                value={newBlog.category_id ? newBlog.category_id : "select"}
+              >
+                <option value="select">Select</option>
+                {category.map((c, key) => {
+                  return (
+                    <option value={c._id} key={key}>
+                      {c.name.toUpperCase()}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          ) : null}
           <div className={classes.writeformgroup}>
             <textarea
               placeholder="Write your blog ...."
               className={classes.writeinput1}
               rows="10"
-            >
-              {content}
-            </textarea>
+              name="content"
+              onChange={inputChanged}
+              value={newBlog.content}
+            ></textarea>
           </div>
-          <button className={classes.writesubmit}>Post</button>
+          <button
+            className={classes.writesubmit}
+            onClick={(e) => {
+              upload(e, newBlog);
+            }}
+          >
+            Post
+          </button>
         </form>
       </div>
     </>

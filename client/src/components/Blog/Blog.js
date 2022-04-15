@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-
+import moment from "moment";
 //img
 import img from "../../assets/img.jpeg";
 
@@ -59,16 +59,13 @@ const useStyles = makeStyles({
 
 const Blog = ({ blog, id }) => {
   const classes = useStyles();
-  let date = new Date(blog.createdAt);
   return (
     <>
       <div className={classes.blog} id={id}>
-        <img src={img} alt="img" className={classes.img} />
+        <img src={blog.img_link} alt="img" className={classes.img} />
         <div className={classes["date-container"]}>
           <div className={classes.category}>{blog.category_id.name}</div>
-          <div>{`${getMonth(
-            date.getMonth()
-          )} ${date.getDate()} , ${date.getFullYear()}`}</div>
+          <div>{moment(blog.created_at).format("MMMM Do, YYYY")}</div>
         </div>
         <div className={classes.header}>{blog.title}</div>
       </div>
@@ -77,22 +74,3 @@ const Blog = ({ blog, id }) => {
 };
 
 export default Blog;
-
-function getMonth(month) {
-  let arr = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return arr[month];
-}

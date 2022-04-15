@@ -133,8 +133,8 @@ const Slider = ({ displaySidebar }) => {
               <Link to="/create" className={classes.li}>
                 Create Blog
               </Link>
-              <Link to="/update" className={classes.li}>
-                Update Blog
+              <Link to={`/profile?id=${authState.id}`} className={classes.li}>
+                Profile
               </Link>
               <li
                 className={classes.li}

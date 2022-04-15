@@ -17,6 +17,8 @@ router.use(function (req, res, next) {
 
 router.get("/", controller.testRequest);
 
+router.get("/profile/:id", controller.getUser);
+
 router.post("/register", controller.register);
 
 router.post("/signin", controller.signin);
