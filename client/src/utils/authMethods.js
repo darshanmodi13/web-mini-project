@@ -1,25 +1,20 @@
+import jsCookie from "js-cookie";
+
 const authMethods = {
   getIdToken: function () {
-    const id = localStorage.getItem("id");
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-    return { id, token, role };
+    const id = jsCookie.get("id");
+    const token = jsCookie.get("token");
+    return { id, token };
   },
 
-  setIdToken: function (id, token, role) {
-    let role_id = 1;
-    if (role === "captain") {
-      role_id = 2;
-    } else if (role === "admin") {
-      role_id = 3;
-    }
-    localStorage.setItem("id", id);
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role_id);
+  setIdToken: function (id, token) {
+    jsCookie.set("id", id, { expires: 30 });
+    jsCookie.set("token", token, { expires: 30 });
   },
 
   clearStorage: function () {
-    localStorage.clear();
+    jsCookie.remove("id");
+    jsCookie.remove("token");
   },
 };
 

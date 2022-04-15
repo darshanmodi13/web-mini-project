@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import PersonIcon from "@mui/icons-material/Person";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 //component
 import Slider from "./Slider";
 
 const useStyles = makeStyles({
   nav: {
-    position:"fixed",
+    position: "fixed",
     top: "0",
     width: "100%",
     display: "flex",
@@ -75,6 +76,7 @@ const useStyles = makeStyles({
 const Navbar = () => {
   const classes = useStyles();
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const { authState } = useGlobalContext();
   return (
     <>
       <div className={classes["nav-container"]}>
@@ -93,12 +95,16 @@ const Navbar = () => {
             <div className={classes["menu-name"]}>MENU</div>
           </div>
           <div className={classes.header}>Bloggr.com</div>
-          <div className={classes["profile"]}>
-            <div className={classes.person}>
-              <PersonIcon style={{ fontSize: "1.5rem" }} />
-            </div>
-            <span className={classes.name}>Darshan Modi</span>
-          </div>
+          {authState.authenticated ? (
+            <>
+              <div className={classes["profile"]}>
+                <div className={classes.person}>
+                  <PersonIcon style={{ fontSize: "1.5rem" }} />
+                </div>
+                <span className={classes.name}>Darshan Modi</span>
+              </div>
+            </>
+          ) : null}
         </nav>
         {isMenuClicked ? <Slider displaySidebar={setIsMenuClicked} /> : null}
       </div>

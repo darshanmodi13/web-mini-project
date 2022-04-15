@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useNavigate } from "react-router-dom";
+import categoryApi from "../../api/category.api";
+
+import { Link } from "react-router-dom";
+import authMethods from "../../utils/authMethods";
+import { actionTypes } from "../../actionTypes/actionType";
 
 const useStyles = makeStyles({
   "slider-container": {
@@ -30,6 +37,7 @@ const useStyles = makeStyles({
   li: {
     paddingTop: "8%",
     fontSize: "1.2rem",
+    color: "#fff",
   },
   categories: {
     listStyle: "none",
@@ -38,6 +46,7 @@ const useStyles = makeStyles({
   },
   category: {
     paddingTop: "20px",
+    color: "#fff",
   },
   rotate: {
     transform: "rotate(180deg)",
@@ -46,6 +55,12 @@ const useStyles = makeStyles({
 
 const Slider = ({ displaySidebar }) => {
   const classes = useStyles();
+  const [category, setCategory] = useState([]);
+  const { authState, authDispatch } = useGlobalContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const rotateArrow = (e) => {
     let arrow = document.querySelector(".arrow");
@@ -56,6 +71,23 @@ const Slider = ({ displaySidebar }) => {
       document.querySelector(`.${classes.categories}`).style.display = "flex";
       arrow.classList.add(classes.rotate);
     }
+  };
+  const getCategories = async () => {
+    categoryApi.getList(
+      (res) => {
+        setCategory(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
+  const logout = () => {
+    authDispatch({ type: actionTypes.SET_AUTHENTICATION, payload: false });
+    authDispatch({ type: actionTypes.SET_ID, payload: null });
+    authDispatch({ type: actionTypes.SET_TOKEN, payload: null });
+    authMethods.clearStorage();
+    navigate("/");
   };
   return (
     <>
@@ -69,7 +101,9 @@ const Slider = ({ displaySidebar }) => {
           />
         </div>
         <ul className={classes.ul}>
-          <li className={classes.li}>Home</li>
+          <Link className={classes.li} to="/">
+            Home
+          </Link>
           <li className={classes.li}>
             <div>
               Category{" "}
@@ -79,14 +113,42 @@ const Slider = ({ displaySidebar }) => {
               />
             </div>
             <ul className={classes.categories}>
-              <li className={classes.category}>LifeStyle</li>
-              <li className={classes.category}>IT</li>
-              <li className={classes.category}>Sports</li>
-              <li className={classes.category}>Food</li>
-              <li className={classes.category}>News</li>
+              {category && category.length > 0
+                ? category.map((c, index) => {
+                    return (
+                      <Link
+                        to={`/category?category_id=${c._id}`}
+                        className={classes.category}
+                        key={index}
+                      >
+                        {c.name.toUpperCase()}
+                      </Link>
+                    );
+                  })
+                : null}
             </ul>
           </li>
-          <li className={classes.li}>Login</li>
+          {authState.authenticated ? (
+            <>
+              <Link to="/create" className={classes.li}>
+                Create Blog
+              </Link>
+              <Link to={`/profile?id=${authState.id}`} className={classes.li}>
+                Profile
+              </Link>
+              <li
+                className={classes.li}
+                onClick={logout}
+                style={{ cursor: "pointer" }}
+              >
+                Logout
+              </li>
+            </>
+          ) : (
+            <Link to="/login" className={classes.li}>
+              Login
+            </Link>
+          )}
           {/* <li className={classes.li}></li> */}
         </ul>
       </div>

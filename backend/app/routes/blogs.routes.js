@@ -2,9 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
+//controller
+const controller = require("../controllers/blog.controller");
+
 //model
 const Blogs = require("../models/blog.model");
-const response = require("../utils/responses");
 
 router.use(function (req, res, next) {
   res.header(
@@ -14,17 +16,16 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get("/list", async (req, res) => {
-  try {
-    let blogs = await Blogs.find();
-    if (!blogs) {
-      return response.notFoundResponse(res);
-    }
-    return response.successResponse(res, blogs);
-  } catch (error) {
-    console.log(error);
-    return response.serverErrorResponse(res);
-  }
-});
+router.get("/list", controller.list);
+
+router.get("/:id", controller.getSingleBlog);
+
+router.post("/:id/create", controller.create);
+
+router.delete("/:id", controller.delete);
+
+router.put("/:id", controller.update);
+
+router.put("/:id/img", controller.updateImg);
 
 module.exports = router;

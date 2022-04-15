@@ -80,10 +80,10 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 //Routes
 app.use("/api/user", userRoutes);
 app.use("/api/category", categoryRoutes);
-app.use("/api/blogs",blogRoutes);
+app.use("/api/blog",blogRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to SE project");
+  res.send("Welcome to Web project");
 });
 
 const PORT = process.env.PORT || 8080;

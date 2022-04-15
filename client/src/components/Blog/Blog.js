@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
-
+import moment from "moment";
 //img
 import img from "../../assets/img.jpeg";
 
@@ -49,6 +49,7 @@ const useStyles = makeStyles({
     padding: "5px",
     marginLeft: "5px",
     cursor: "pointer",
+    textTransform: "capitalize",
     "&:hover": {
       color: "#fff",
       background: "black",
@@ -56,19 +57,17 @@ const useStyles = makeStyles({
   },
 });
 
-const Blog = () => {
+const Blog = ({ blog, id }) => {
   const classes = useStyles();
   return (
     <>
-      <div className={classes.blog}>
-        <img src={img} alt="img" className={classes.img} />
+      <div className={classes.blog} id={id}>
+        <img src={blog.img_link} alt="img" className={classes.img} />
         <div className={classes["date-container"]}>
-          <div className={classes.category}>Blog</div>
-          <div>March 21,2022</div>
+          <div className={classes.category}>{blog.category_id.name}</div>
+          <div>{moment(blog.created_at).format("MMMM Do, YYYY")}</div>
         </div>
-        <div className={classes.header}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-        </div>
+        <div className={classes.header}>{blog.title}</div>
       </div>
     </>
   );
