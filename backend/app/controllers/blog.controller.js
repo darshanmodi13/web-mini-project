@@ -43,11 +43,13 @@ exports.create = async (req, res) => {
       fs.writeFile(
         path.join(__dirname, `../public/${new_blog._id}.jpg`),
         img_link_buffer,
+        "base64",
         (err) => {
-          // console.log(err);
+          console.log(err);
         }
       );
     } catch (err) {
+      console.log(err);
       return response.serverErrorResponse(res, "Error while uploading blog.");
     }
     new_blog.category_id = mongoose.Types.ObjectId(req.body.category_id);
@@ -105,7 +107,28 @@ exports.update = async (req, res) => {
         validate.error.details[0].message
       );
     }
-
+    try {
+      const img_link_buffer = Buffer.from(req.body.img_link, "base64");
+      if (img_link_buffer.length / 1024 / 1024 > 5) {
+        return responses.badRequestResponse(
+          res,
+          "File size must be lesser than 5 MB"
+        );
+      }
+      req.body.img_link = `${process.env.SERVER}/public/${req.params.id}.jpg`;
+      fs.writeFile(
+        path.join(__dirname, `../public/${req.params.id}.jpg`),
+        img_link_buffer,
+        (err) => {
+          // console.log(err);
+        }
+      );
+    } catch (err) {
+      return responses.serverErrorResponse(
+        res,
+        "Error while updating blog image."
+      );
+    }
     let update_blog = await Blog.findByIdAndUpdate(req.params.id, req.body);
     if (!update_blog) {
       return responses.badRequestResponse(
@@ -134,28 +157,7 @@ exports.updateImg = async (req, res) => {
     if (!req.body.img_link) {
       return responses.badRequestResponse(res, {}, "Provide base64..");
     }
-    try {
-      const img_link_buffer = Buffer.from(req.body.img_link, "base64");
-      if (img_link_buffer.length / 1024 / 1024 > 5) {
-        return responses.badRequestResponse(
-          res,
-          "File size must be lesser than 5 MB"
-        );
-      }
-      blog.img_link = `${process.env.SERVER}/public/${blog._id}.jpg`;
-      fs.writeFile(
-        path.join(__dirname, `../public/${blog._id}.jpg`),
-        img_link_buffer,
-        (err) => {
-          // console.log(err);
-        }
-      );
-    } catch (err) {
-      return responses.serverErrorResponse(
-        res,
-        "Error while updating blog image."
-      );
-    }
+
     blog.save();
     return responses.successResponse(res, blog, "Blog Updated...");
   } catch (error) {
@@ -168,7 +170,7 @@ exports.getSingleBlog = async (req, res) => {
   try {
     if (!req.params.id)
       return responses.badRequestResponse(res, { error: "Provid Blog ID" });
-    let blog = await Blog.findById(req.params.id);
+    let blog = await Blog.findById(req.params.id).populate("category_id");
     if (!blog) return responses.notFoundResponse(res, "Blog Not Found..");
     return responses.successResponse(res, blog, "Blog Found..");
   } catch (error) {
