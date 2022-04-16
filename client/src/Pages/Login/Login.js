@@ -110,7 +110,8 @@ const Login = () => {
         authDispatch({ type: actionTypes.SET_AUTHENTICATION, payload: true });
         authDispatch({ type: actionTypes.SET_ID, payload: res._id });
         authDispatch({ type: actionTypes.SET_TOKEN, payload: res.token });
-        authMethods.setIdToken(res._id, res.token);
+        authDispatch({ type: actionTypes.SET_NAME, payload: res.name });
+        authMethods.setIdToken(res._id, res.token, res.name);
         navigate("/");
       },
       (err) => {

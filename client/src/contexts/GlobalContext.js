@@ -11,12 +11,13 @@ const GlobalContext = React.createContext();
 const GlobalContextProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(AuthReducer, AuthInitialState);
 
-  const { id, token } = auth.getIdToken();
+  const { id, token, name } = auth.getIdToken();
   useEffect(() => {
     if (token && id) {
       authDispatch({ type: actionTypes.SET_AUTHENTICATION, payload: true });
       authDispatch({ type: actionTypes.SET_ID, payload: id });
       authDispatch({ type: actionTypes.SET_TOKEN, payload: token });
+      authDispatch({ type: actionTypes.SET_NAME, payload: name });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

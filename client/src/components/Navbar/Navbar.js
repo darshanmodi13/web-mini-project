@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import PersonIcon from "@mui/icons-material/Person";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import { Link } from "react-router-dom";
 //component
 import Slider from "./Slider";
 
@@ -56,6 +57,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    color: "black",
   },
   person: {
     color: "#00000099",
@@ -97,12 +99,15 @@ const Navbar = () => {
           <div className={classes.header}>Bloggr.com</div>
           {authState.authenticated ? (
             <>
-              <div className={classes["profile"]}>
+              <Link
+                className={classes["profile"]}
+                to={`/profile?id=${authState.id}`}
+              >
                 <div className={classes.person}>
                   <PersonIcon style={{ fontSize: "1.5rem" }} />
                 </div>
-                <span className={classes.name}>Darshan Modi</span>
-              </div>
+                <span className={classes.name}>{authState.name}</span>
+              </Link>
             </>
           ) : null}
         </nav>
