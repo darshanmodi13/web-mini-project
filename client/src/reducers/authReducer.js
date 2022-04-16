@@ -4,6 +4,7 @@ const AuthInitialState = {
   authenticated: false,
   id: null,
   token: null,
+  name: null,
 };
 
 const AuthReducer = (state, action) => {
@@ -20,7 +21,9 @@ const AuthReducer = (state, action) => {
     case actionTypes.SET_TOKEN: {
       return { ...state, token: action.payload };
     }
-
+    case actionTypes.SET_NAME: {
+      return { ...state, name: action.payload };
+    }
     default:
       return state;
   }

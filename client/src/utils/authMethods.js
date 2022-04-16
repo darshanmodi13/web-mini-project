@@ -4,17 +4,20 @@ const authMethods = {
   getIdToken: function () {
     const id = jsCookie.get("id");
     const token = jsCookie.get("token");
-    return { id, token };
+    const name = jsCookie.get("name");
+    return { id, token, name };
   },
 
-  setIdToken: function (id, token) {
+  setIdToken: function (id, token, name) {
     jsCookie.set("id", id, { expires: 30 });
     jsCookie.set("token", token, { expires: 30 });
+    jsCookie.set("name", name, { expires: 30 });
   },
 
   clearStorage: function () {
     jsCookie.remove("id");
     jsCookie.remove("token");
+    jsCookie.remove("name");
   },
 };
 
