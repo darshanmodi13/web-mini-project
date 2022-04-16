@@ -178,3 +178,20 @@ exports.getSingleBlog = async (req, res) => {
     return responses.serverErrorResponse(res);
   }
 };
+
+exports.getBlogsByCategory = async (req, res) => {
+  try {
+    if (!req.params.category_id)
+      return responses.badRequestResponse(res, {
+        error: "Provide category ID",
+      });
+    let blog = await Blog.find({
+      category_id: req.params.category_id,
+    }).populate("category_id");
+    if (!blog) return responses.notFoundResponse(res, "Blog Not Found..");
+    return responses.successResponse(res, blog, "Blog Found..");
+  } catch (error) {
+    console.log(error);
+    return responses.serverErrorResponse(res);
+  }
+};

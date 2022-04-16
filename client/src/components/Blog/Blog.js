@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import moment from "moment";
 //img
 import img from "../../assets/img.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   blog: {
@@ -59,12 +60,23 @@ const useStyles = makeStyles({
 
 const Blog = ({ blog, id }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const categoryClicked = (id) => {
+    navigate(`/category?category_id=${id}`);
+  };
   return (
     <>
       <div className={classes.blog} id={id}>
         <img src={blog.img_link} alt="img" className={classes.img} />
         <div className={classes["date-container"]}>
-          <div className={classes.category}>{blog.category_id.name}</div>
+          <div
+            className={classes.category}
+            onClick={() => {
+              categoryClicked(blog.category_id._id);
+            }}
+          >
+            {blog.category_id.name}
+          </div>
           <div>{moment(blog.created_at).format("MMMM Do, YYYY")}</div>
         </div>
         <div className={classes.header}>{blog.title}</div>

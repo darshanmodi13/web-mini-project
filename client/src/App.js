@@ -15,6 +15,7 @@ import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 import { UpdateBlog } from "./Pages/UpdateBlog/UpdateBlog";
 // import ViewProfile from "./Pages/ViewProfile/ViewProfile";
 import Profile from "./Pages/Profile/Profile";
+import Category from "./Pages/Category/Category";
 
 //routes
 import AuthRoutes from "./components/routes/AuthRoute";
@@ -26,6 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
           <Route
             path="/login"
             element={
