@@ -40,7 +40,16 @@ const blogApi = {
   updateBlog: async (id, body, onSuccess, onError) => {
     try {
       let res = await Axios().put(`/api/blog/${id}`, { ...body });
-      
+
+      onSuccess(res.data.data);
+    } catch (error) {
+      console.log(error);
+      onError(error.response.data);
+    }
+  },
+  getBlogsByCategory: async (category_id, onSuccess, onError) => {
+    try {
+      let res = await Axios().get(`/api/blog/category/${category_id}`);
       onSuccess(res.data.data);
     } catch (error) {
       console.log(error);

@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import Navbar from "../../components/Navbar/Navbar";
 import blog from "../../assets/blog.jpeg";
 import { Close } from "@mui/icons-material";
-
+import { useNavigate } from "react-router-dom";
 //api
 import authApi from "../../api/auth.api";
 
@@ -71,6 +71,8 @@ const useStyles = makeStyles({
 
 const Register = () => {
   const classes = useStyles();
+
+  const navigate = useNavigate();
   const [err, setErr] = useState(null);
   const [input, setInput] = useState({
     name: "",
@@ -115,6 +117,7 @@ const Register = () => {
       data,
       (res) => {
         console.log(res);
+        navigate("/login")
       },
       (err) => {
         console.log(err);

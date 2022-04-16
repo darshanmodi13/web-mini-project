@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   li: {
-    paddingTop: "8%",
+    paddingTop: "5%",
     fontSize: "1.2rem",
     color: "#fff",
   },

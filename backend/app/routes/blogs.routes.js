@@ -18,6 +18,8 @@ router.use(function (req, res, next) {
 
 router.get("/list", controller.list);
 
+router.get("/category/:category_id", controller.getBlogsByCategory);
+
 router.get("/:id", controller.getSingleBlog);
 
 router.post("/:id/create", controller.create);
